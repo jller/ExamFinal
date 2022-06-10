@@ -72,14 +72,20 @@ public class ExamFinal_AlvizuriJose {
         );
     }
     public static void procesarOpcion(int opcion){
+        int v;
         switch (opcion) {
             case 1:{
                 System.out.print("Ingrese nombre del platillo: "); String nombre=lee.nextLine();
                 System.out.print("Ingrese precio del platillo: "); Double precio=scanf();
                 System.out.print("Ingrese una descripcion del platillo: "); String descripcion=lee.nextLine();
-                System.out.print("Ingrese su valoracion del platillo: "); int valoracion=scan();
+                while(true){ 
+                    System.out.print("Ingrese su valoracion del platillo [1-10]: "); v=scan();
+                    if(v>10 || v<1){
+                        System.out.println("Valoracion no valida");continue;
+                    }break; 
+                }
                 System.out.print("Ingrese region de origen del platillo: "); String region=lee.nextLine();
-                Plato p = new Plato(nombre, precio, descripcion,valoracion, region);
+                Plato p = new Plato(nombre, precio, descripcion, v, region);
                 IPlatoDao platoDao = new PlatoDao();
                 platoDao.insertar(p);
                 break;
@@ -91,7 +97,6 @@ public class ExamFinal_AlvizuriJose {
                 break;
             }
             case 3:{
-                int x;
                 System.out.println(" --------- plato obtenido --------- ");
                 System.out.print("Ingrese id del platillo a modificar: "); int id=scan();
                 IPlatoDao platoDao = new PlatoDao();
@@ -100,28 +105,33 @@ public class ExamFinal_AlvizuriJose {
                 System.out.println(" ------------ iniciando la actualizacion del platillo--------");
                 while(true){ 
                     System.out.print("Seleccione atributo (1)Nombre, (2)Precio, (3)Descripcion, (4)valoracion, (5)Region: "); 
-                    x=scan();
-                    if(x>5 || x<1){
+                    v=scan();
+                    if(v>5 || v<1){
                         System.out.println("Seleccion no valida");continue;
                     }break; 
                 }
-                if(x==1){
+                if(v==1){
                     System.out.print("Ingrese nuevo nombre: "); String n=lee.nextLine();
                     platoAObtener.setNombre(n);
                 }
-                if(x==2){
+                if(v==2){
                     System.out.print("Ingrese nuevo precio: "); Double n=scanf();
                     platoAObtener.setPrecio(n);
                 }
-                if(x==3){
+                if(v==3){
                     System.out.print("Ingrese nueva descripcion: "); String n=lee.nextLine();
                     platoAObtener.setDescripcion(n);
                 }
-                if(x==4){
-                    System.out.print("Ingrese nueva valoracion: "); int n=scan();
-                    platoAObtener.setValoracion(n);
+                if(v==4){
+                    while(true){ 
+                        System.out.print("Ingrese su valoracion del platillo [1-10]: "); v=scan();
+                        platoAObtener.setValoracion(v);
+                        if(v>10 || v<1){
+                            System.out.println("Valoracion no valida");continue;
+                        }break; 
+                    }
                 }
-                if(x==5){
+                if(v==5){
                     System.out.print("Ingrese nueva region: "); String n=lee.nextLine();
                     platoAObtener.setRegion(n);
                 }
