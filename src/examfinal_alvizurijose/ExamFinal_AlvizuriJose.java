@@ -92,14 +92,24 @@ public class ExamFinal_AlvizuriJose {
             }
             case 2:{
                 IPlatoDao platoDao = new PlatoDao();
-                List<Plato> listado = platoDao.listar("select * from plato");
+                System.out.println("\nLISTADO DE PLATILLOS DADOS DE ALTA:");
+                List<Plato> listado = platoDao.listar("select * from plato where estado = 1");
+                listado.forEach((x) -> x.detalle());
+                System.out.println("\nLISTADO DE PLATILLOS DADOS DE BAJA: ");
+                listado = platoDao.listar("select * from plato where estado = 0");
                 listado.forEach((x) -> x.detalle());
                 break;
             }
             case 3:{
-                System.out.println(" --------- plato obtenido --------- ");
-                System.out.print("Ingrese id del platillo a modificar: "); int id=scan();
+                int id=0;
                 IPlatoDao platoDao = new PlatoDao();
+                while(true){ 
+                    System.out.print("\nIngrese id del platillo a modificar: "); id=scan();
+                    if(id<1 || id>platoDao.consultar("SELECT MAX(idplato) FROM plato")){
+                        System.out.println("Id no valido");continue;
+                    }break; 
+                }
+                System.out.println(" --------- plato obtenido --------- ");
                 Plato platoAObtener = platoDao.obtenerXId(id);
                 platoAObtener.detalle();
                 System.out.println(" ------------ iniciando la actualizacion del platillo--------");

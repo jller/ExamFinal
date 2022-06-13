@@ -17,4 +17,5 @@ public interface IPlatoDao {
     public Plato obtenerXId(int id);
     public void actualizar(Plato p);
     public void actualizaEstado(int id,int estado);
+    public int consultar(String sql);
 }

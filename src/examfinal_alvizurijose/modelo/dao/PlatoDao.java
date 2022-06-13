@@ -152,4 +152,23 @@ public class PlatoDao implements IPlatoDao{
             Conexion.close();
         }
     }
+
+    @Override
+    public int consultar(String sql) {
+        Connection cnn =null;
+        int i=0;
+        try {
+            cnn = Conexion.conectar();
+            PreparedStatement ps = cnn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            i = rs.getInt(1);  
+            
+        } catch (Exception e) {
+            System.out.println(" error al listar platillos "+e.getMessage());
+        }finally{
+            Conexion.close();
+        }
+        return i;
+    }
 }
